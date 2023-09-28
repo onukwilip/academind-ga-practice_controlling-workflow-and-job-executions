@@ -1,0 +1,30 @@
+name: Reusable workflow - deploy build
+on:
+  workflow_call:
+    inputs:
+      artifact-name:
+        description: The name of the artifact to be downloaded
+        required: true
+        type: string
+        default: public
+    outputs:
+      content:
+        description: The content of the downloaded artifact
+        value: ${{jobs.deploy.outputs.content}}
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      content: ${{ steps.content.outputs.artifact-content }}
+    steps:
+      - name: Begin deploy
+        run: echo Began deploy process...
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{inputs.artifact-name}}
+      - name: Display downloaded artifact content
+        run: ls
+      - name: Output artifact content
+        id: content
+        run: echo "artifact-content=$(ls) >> $GITHUB_OUTPUT"
