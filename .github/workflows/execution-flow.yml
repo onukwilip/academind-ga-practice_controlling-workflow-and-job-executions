@@ -90,6 +90,8 @@ jobs:
   deploy:
     needs: build
     uses: "./.github/workflows/reusable-flow.yaml"
+    with:
+      artifact-name: dist-files
     # runs-on: ubuntu-latest
     # steps:
     #   - name: Get build artifacts
@@ -100,7 +102,12 @@ jobs:
     #     run: ls
     #   - name: Deploy
     #     run: echo "Deploying..."
-
+  output-deploy-content:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print output from previous build
+        run: echo ${{needs.deploy.outputs.content}}
   output:
     needs: deploy
     if: failure()
