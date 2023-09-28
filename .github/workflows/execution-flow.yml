@@ -22,6 +22,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -35,11 +36,10 @@ jobs:
         run: npm ci
       - name: Test code
         id: tests
-        continue-on-error: true
         run: npm run test
       - name: Upload test report
-        # if: failure() && steps.tests.outcome == 'failure'
-        if: steps.tests.outcome == 'failure'
+        if: failure() && steps.tests.outcome == 'failure'
+        # if: steps.tests.outcome == 'failure'
         uses: actions/upload-artifact@v3
         with:
           name: test-report
