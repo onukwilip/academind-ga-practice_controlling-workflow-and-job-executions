@@ -27,4 +27,4 @@ jobs:
         run: ls
       - name: Output artifact content
         id: content
-        run: echo "artifact-content=$(ls) >> $GITHUB_OUTPUT"
+        run: echo "artifact-content=$(ls | head -n 1) >> $GITHUB_OUTPUT"
