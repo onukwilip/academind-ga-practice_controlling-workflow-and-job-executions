@@ -107,7 +107,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print output from previous build
-        run: echo ${{needs.deploy.outputs.content}}
+        run: echo ${{needs.deploy.outputs.result}}
   output:
     needs: deploy
     if: failure()
