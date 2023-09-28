@@ -80,7 +80,7 @@ jobs:
         run: echo "Deploying..."
 
   output:
-    needs: build
+    needs: deploy
     if: failure()
     runs-on: ubuntu-latest
     steps:
